@@ -16,6 +16,16 @@ namespace MysteriesOfEmberwick
     public class Inventory
     {
 
+        public Inventory()
+        {
+            LoadInventory();
+        }
+        
+         ~Inventory()
+        {
+            EmptyInventory();
+        }
+
         // Name of text file that will contain player's inventory when game isn't running
         string inventoryFile = "Inventory.txt";
 
@@ -72,26 +82,39 @@ namespace MysteriesOfEmberwick
             // ToLower is used to make sure everything added is lower case
             // This will make it easier for the use item function
             inventoryItems.Add(item.ToLower());
+            Console.WriteLine($"You picked up {item}!");
         }
 
         // is called to display the players inventory
         public void DisplayInventory()
         {
+            int i = 0;
             foreach(string item in inventoryItems)
             {
+                
                 // ToUpper is used just for astetics of the menu
-                Console.WriteLine($"*{item.ToUpper()} \n");
+                Console.WriteLine($"{i + 1}.{item.ToUpper()} \n");
+                i++;
             }
         }
 
         // is called when the player uses an item. Currently just deletes the item from their inventory
-        public void UseItem(string playerItem)
+        public void UseItem()
         {
+            int itemNum;
+            DisplayInventory();
+
+            Console.WriteLine("Please enter the number next to the item you would like to use.");
+            itemNum = Actions.GetPlayerNumberInput();
+
             foreach(string item in inventoryItems)
             {
-                if(playerItem.ToLower() == item)
+                
+                if(item == inventoryItems[itemNum - 1])
                 {
+                    Console.WriteLine($"You used: {item}");
                     inventoryItems.Remove(item);
+                    return;
                 }
             }
         }
