@@ -28,4 +28,4 @@ The player is given an input box to choose an option that is listed based off th
     This would then send the player into the Investigate portion for the area they are currently within.
 
 # Current Bugs
-
+- The Accuse Function currently crashes Unity as is
